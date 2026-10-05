@@ -1,0 +1,1211 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>BAKUTUMBUK ARISAN</title>
+
+<style>
+*{
+box-sizing:border-box;
+-webkit-tap-highlight-color:transparent;
+}
+
+body{
+margin:0;
+font-family:Arial,sans-serif;
+background:#050711;
+color:white;
+overflow:hidden;
+}
+
+.page{
+display:none;
+width:100%;
+height:100vh;
+text-align:center;
+}
+
+.active{
+display:block;
+}
+
+/* ================= HOME ================= */
+
+#home{
+padding-top:115px;
+background:
+radial-gradient(circle at 50% 35%,#633126,#161326 45%,#050711 80%);
+}
+
+.logo{
+font-size:39px;
+font-weight:900;
+letter-spacing:2px;
+color:#ffd43b;
+text-shadow:
+0 0 8px #ff8c00,
+0 0 25px #ff3d00;
+}
+
+.subtitle{
+font-size:17px;
+color:#ddd;
+margin-top:15px;
+}
+
+.small{
+font-size:13px;
+color:#999;
+margin-top:8px;
+margin-bottom:45px;
+}
+
+.btn{
+border:0;
+border-radius:16px;
+padding:16px 30px;
+background:linear-gradient(135deg,#ff512f,#dd2476);
+color:white;
+font-size:18px;
+font-weight:bold;
+box-shadow:0 8px 25px #ff174455;
+}
+
+.btn:active{
+transform:scale(.93);
+}
+
+/* ================= PILIH ================= */
+
+#select{
+padding:16px 10px;
+background:
+linear-gradient(#151c35,#050711);
+}
+
+#select h2{
+margin:5px 0 15px;
+color:#ffd43b;
+}
+
+.grid{
+width:100%;
+max-width:600px;
+margin:auto;
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:10px;
+height:83vh;
+overflow:auto;
+padding:4px;
+}
+
+.card{
+background:#151b30;
+border:1px solid #3b4566;
+border-radius:17px;
+padding:6px;
+transition:.15s;
+}
+
+.card:active{
+transform:scale(.93);
+background:#252d4d;
+}
+
+.avatar{
+height:150px;
+}
+
+.name{
+font-weight:bold;
+font-size:15px;
+padding:5px;
+}
+
+/* ================= BATTLE ================= */
+
+#battle{
+background:
+linear-gradient(
+#111b3a 0%,
+#111b3a 52%,
+#3a2921 52%,
+#251915 100%
+);
+padding:7px;
+}
+
+.top{
+height:58px;
+display:flex;
+align-items:center;
+justify-content:space-around;
+position:relative;
+z-index:30;
+}
+
+.info{
+width:38%;
+font-size:13px;
+font-weight:bold;
+}
+
+.hpBox{
+height:18px;
+border:2px solid white;
+border-radius:12px;
+background:#222;
+overflow:hidden;
+margin-top:4px;
+}
+
+.hp{
+width:100%;
+height:100%;
+background:#24df70;
+transition:.3s;
+}
+
+.enemyHp{
+background:#ef394b;
+}
+
+.vs{
+font-size:22px;
+font-weight:bold;
+color:#ffd43b;
+text-shadow:0 0 8px red;
+}
+
+.arena{
+position:relative;
+height:calc(100vh - 145px);
+overflow:hidden;
+border-bottom:7px solid #111;
+}
+
+.floor{
+position:absolute;
+bottom:0;
+left:0;
+width:100%;
+height:38%;
+background:
+repeating-linear-gradient(
+90deg,
+#49342a 0,
+#49342a 45px,
+#3a2922 45px,
+#3a2922 90px
+);
+}
+
+.floor:before{
+content:"";
+position:absolute;
+top:20px;
+width:100%;
+height:5px;
+background:#795743;
+opacity:.7;
+}
+
+/* CHARACTER */
+
+.fighter{
+position:absolute;
+bottom:22%;
+width:175px;
+height:270px;
+z-index:10;
+}
+
+#p1{
+left:2%;
+}
+
+#p2{
+right:2%;
+transform:scaleX(-1);
+}
+
+/* ATTACK ANIMATION */
+
+.attackP{
+animation:attackP .48s ease;
+}
+
+.attackE{
+animation:attackE .48s ease;
+}
+
+.hit{
+animation:hit .32s ease;
+}
+
+.guard{
+animation:guard .35s ease;
+}
+
+@keyframes attackP{
+
+0%{
+transform:translateX(0);
+}
+
+35%{
+transform:translateX(70px) rotate(-4deg);
+}
+
+55%{
+transform:translateX(105px) rotate(-9deg);
+}
+
+100%{
+transform:translateX(0);
+}
+
+}
+
+@keyframes attackE{
+
+0%{
+transform:scaleX(-1) translateX(0);
+}
+
+35%{
+transform:scaleX(-1) translateX(70px) rotate(-4deg);
+}
+
+55%{
+transform:scaleX(-1) translateX(105px) rotate(-9deg);
+}
+
+100%{
+transform:scaleX(-1) translateX(0);
+}
+
+}
+
+@keyframes hit{
+
+0%{
+transform:translateX(0);
+}
+
+35%{
+transform:translateX(28px) rotate(8deg);
+}
+
+65%{
+transform:translateX(-15px) rotate(-5deg);
+}
+
+100%{
+transform:translateX(0);
+}
+
+}
+
+@keyframes guard{
+
+50%{
+transform:scale(1.08);
+}
+
+}
+
+/* IMPACT */
+
+.impact{
+position:absolute;
+z-index:50;
+font-size:40px;
+font-weight:900;
+color:#ffe600;
+text-shadow:
+0 0 5px #fff,
+0 0 15px red;
+animation:impact .55s forwards;
+pointer-events:none;
+}
+
+@keyframes impact{
+
+0%{
+opacity:0;
+transform:scale(.3) rotate(-20deg);
+}
+
+35%{
+opacity:1;
+transform:scale(1.4) rotate(10deg);
+}
+
+100%{
+opacity:0;
+transform:scale(.8) translateY(-50px);
+}
+
+}
+
+/* CONTROLS */
+
+.controls{
+position:absolute;
+bottom:7px;
+left:0;
+width:100%;
+display:flex;
+justify-content:center;
+gap:10px;
+z-index:60;
+}
+
+.control{
+border:0;
+border-radius:15px;
+padding:14px 21px;
+color:white;
+font-size:15px;
+font-weight:bold;
+}
+
+.attack{
+background:#e53935;
+}
+
+.defend{
+background:#1976d2;
+}
+
+.control:active{
+transform:scale(.9);
+}
+
+/* ================= RESULT ================= */
+
+#result{
+padding-top:115px;
+background:
+radial-gradient(circle,#343f6b,#080b16 70%);
+}
+
+.resultTitle{
+font-size:38px;
+font-weight:900;
+color:#ffd43b;
+text-shadow:0 0 15px #ff7b00;
+}
+
+.reward{
+font-size:65px;
+margin:20px;
+}
+
+.rewardText{
+font-size:18px;
+color:#ddd;
+}
+
+.gameName{
+color:#ff5964;
+font-weight:bold;
+}
+
+/* SVG */
+
+svg{
+width:100%;
+height:100%;
+overflow:visible;
+}
+</style>
+</head>
+
+<body>
+
+
+<!-- ==================================================
+HOME
+================================================== -->
+
+<div id="home" class="page active">
+
+<div class="logo">
+🥊 BAKUTUMBUK ARISAN
+</div>
+
+<div class="subtitle">
+Pertarungan antar anggota arisan!
+</div>
+
+<div class="small">
+8 PETARUNG • 1 JUARA • 1 HADIAH
+</div>
+
+<button class="btn" onclick="openSelect()">
+🔥 MULAI BAKUTUMBUK
+</button>
+
+</div>
+
+
+<!-- ==================================================
+PILIH KARAKTER
+================================================== -->
+
+<div id="select" class="page">
+
+<h2>🔥 PILIH PETARUNG</h2>
+
+<div class="grid">
+
+
+<div class="card" onclick="start('Jembo')">
+<div id="a1" class="avatar"></div>
+<div class="name">Jembo</div>
+</div>
+
+
+<div class="card" onclick="start('Lia')">
+<div id="a2" class="avatar"></div>
+<div class="name">Lia</div>
+</div>
+
+
+<div class="card" onclick="start('Fantry')">
+<div id="a3" class="avatar"></div>
+<div class="name">Fantry</div>
+</div>
+
+
+<div class="card" onclick="start('Irene')">
+<div id="a4" class="avatar"></div>
+<div class="name">Irene</div>
+</div>
+
+
+<div class="card" onclick="start('Andro')">
+<div id="a5" class="avatar"></div>
+<div class="name">Andro</div>
+</div>
+
+
+<div class="card" onclick="start('Sany')">
+<div id="a6" class="avatar"></div>
+<div class="name">Sany</div>
+</div>
+
+
+<div class="card" onclick="start('Dimas')">
+<div id="a7" class="avatar"></div>
+<div class="name">Dimas</div>
+</div>
+
+
+<div class="card" onclick="start('Aldy')">
+<div id="a8" class="avatar"></div>
+<div class="name">Aldy</div>
+</div>
+
+
+</div>
+</div>
+
+
+<!-- ==================================================
+BATTLE
+================================================== -->
+
+<div id="battle" class="page">
+
+<div class="top">
+
+<div class="info">
+
+<div id="playerName">
+PLAYER
+</div>
+
+<div class="hpBox">
+<div id="hp1" class="hp"></div>
+</div>
+
+</div>
+
+
+<div class="vs">
+VS
+</div>
+
+
+<div class="info">
+
+<div id="enemyName">
+MUSUH
+</div>
+
+<div class="hpBox">
+<div id="hp2" class="hp enemyHp"></div>
+</div>
+
+</div>
+
+</div>
+
+
+<div id="arena" class="arena">
+
+<div id="p1" class="fighter"></div>
+
+<div id="p2" class="fighter"></div>
+
+<div class="floor"></div>
+
+
+<div class="controls">
+
+<button
+class="control attack"
+onclick="playerAttack()">
+👊 BAKUTUMBUK
+</button>
+
+<button
+class="control defend"
+onclick="playerDefend()">
+🛡️ TAHAN
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- ==================================================
+RESULT
+================================================== -->
+
+<div id="result" class="page">
+
+<div id="resultTitle" class="resultTitle">
+🏆 MENANG!
+</div>
+
+<div class="reward">
+🍜
+</div>
+
+<div class="rewardText">
+
+Selamat!
+
+<br><br>
+
+Kamu memenangkan
+<br>
+
+<span class="gameName">
+BAKUTUMBUK ARISAN
+</span>
+
+<br><br>
+
+🎁 Hadiah: <b>MIE GACOAN</b>
+
+</div>
+
+<br><br>
+
+<button class="btn" onclick="openSelect()">
+🔄 BAKUTUMBUK LAGI
+</button>
+
+</div>
+
+
+<script>
+
+/* ==================================================
+VARIABEL
+================================================== */
+
+var playerName="";
+var enemyName="";
+
+var hpPlayer=100;
+var hpEnemy=100;
+
+var defending=false;
+var busy=false;
+
+
+/* ==================================================
+GAMBAR KARAKTER
+================================================== */
+
+function character(name){
+
+var skin="#f0c2a0";
+var hair="#17120f";
+var shirt="#e53935";
+
+var big=false;
+var longHair=false;
+var slit=false;
+var angry=false;
+
+
+/* JEMBO */
+
+if(name=="Jembo"){
+
+skin="#f5d0b5";
+hair="#17120f";
+shirt="#d62828";
+slit=true;
+
+}
+
+
+/* LIA */
+
+if(name=="Lia"){
+
+skin="#f4ccb4";
+hair="#f4f4f4";
+shirt="#e91e63";
+
+}
+
+
+/* FANTRY */
+
+if(name=="Fantry"){
+
+skin="#f5d0b5";
+hair="#17120f";
+shirt="#ff9800";
+
+}
+
+
+/* IRENE */
+
+if(name=="Irene"){
+
+skin="#efc4aa";
+hair="#17120f";
+shirt="#00a6a6";
+big=true;
+
+}
+
+
+/* ANDRO */
+
+if(name=="Andro"){
+
+skin="#f4d0b5";
+hair="#f5f5f5";
+shirt="#1976d2";
+
+}
+
+
+/* SANY */
+
+if(name=="Sany"){
+
+skin="#f5d0b5";
+hair="#ed5d9a";
+shirt="#9c27b0";
+longHair=true;
+
+}
+
+
+/* DIMAS */
+
+if(name=="Dimas"){
+
+skin="#70452f";
+hair="#151515";
+shirt="#252525";
+big=true;
+angry=true;
+
+}
+
+
+/* ALDY */
+
+if(name=="Aldy"){
+
+skin="#f2c8ad";
+hair="#17120f";
+shirt="#111";
+
+}
+
+
+/* UKURAN */
+
+var bw=big?90:70;
+
+var bx=80-bw/2;
+
+
+/* RAMBUT */
+
+var backHair="";
+
+if(longHair){
+
+backHair=
+'<path d="M38 72 Q24 125 43 150 L117 150 Q136 125 122 72Z" fill="'+hair+'"/>';
+
+}else{
+
+backHair=
+'<path d="M43 65 Q35 105 52 120 L108 120 Q125 100 117 65Z" fill="'+hair+'"/>';
+
+}
+
+
+/* MATA */
+
+var eyes="";
+
+if(slit){
+
+eyes=
+'<path d="M52 84 L70 87" stroke="#111" stroke-width="5"/>'+
+'<path d="M90 87 L108 84" stroke="#111" stroke-width="5"/>';
+
+}else if(angry){
+
+eyes=
+'<path d="M50 81 L70 88" stroke="#111" stroke-width="6"/>'+
+'<path d="M90 88 L110 81" stroke="#111" stroke-width="6"/>';
+
+}else{
+
+eyes=
+'<ellipse cx="62" cy="86" rx="8" ry="6" fill="white"/>'+
+'<ellipse cx="98" cy="86" rx="8" ry="6" fill="white"/>'+
+'<circle cx="62" cy="86" r="3" fill="#111"/>'+
+'<circle cx="98" cy="86" r="3" fill="#111"/>';
+
+}
+
+
+/* MULUT */
+
+var mouth="";
+
+if(angry){
+
+mouth=
+'<path d="M65 108 L95 108" stroke="#321010" stroke-width="5"/>';
+
+}else{
+
+mouth=
+'<path d="M67 106 Q80 114 93 106" fill="none" stroke="#803b35" stroke-width="4"/>';
+
+}
+
+
+/* SVG */
+
+return '<svg viewBox="0 0 160 250">'+
+
+/* BAYANGAN */
+
+'<ellipse cx="80" cy="238" rx="55" ry="9" fill="#000" opacity=".4"/>'+
+
+/* KAKI */
+
+'<rect x="47" y="188" width="22" height="43" rx="9" fill="'+skin+'"/>'+
+'<rect x="91" y="188" width="22" height="43" rx="9" fill="'+skin+'"/>'+
+
+/* SEPATU */
+
+'<path d="M39 228 Q55 217 72 230 L72 241 L38 241Z" fill="#111"/>'+
+'<path d="M88 230 Q105 217 121 228 L122 241 L88 241Z" fill="#111"/>'+
+
+/* BADAN */
+
+'<path d="M'+bx+' 125 Q80 113 '+(160-bx)+' 125 L'+
+(160-bx+4)+' 190 Q80 204 '+(bx-4)+' 190Z" fill="'+shirt+'"/>'+
+
+/* SABUK */
+
+'<rect x="'+(bx+7)+'" y="181" width="'+(bw-14)+'" height="10" rx="3" fill="#111"/>'+
+
+/* LEHER */
+
+'<rect x="69" y="104" width="22" height="27" rx="8" fill="'+skin+'"/>'+
+
+/* TANGAN */
+
+'<path d="M45 130 Q20 145 27 177 Q32 185 40 176 L58 143Z" fill="'+shirt+'"/>'+
+'<path d="M115 130 Q140 145 133 177 Q128 185 120 176 L102 143Z" fill="'+shirt+'"/>'+
+
+/* SARUNG TANGAN */
+
+'<circle cx="29" cy="177" r="12" fill="#222"/>'+
+'<circle cx="131" cy="177" r="12" fill="#222"/>'+
+
+/* RAMBUT BELAKANG */
+
+backHair+
+
+/* KEPALA */
+
+'<ellipse cx="80" cy="80" rx="38" ry="46" fill="'+skin+'"/>'+
+
+/* RAMBUT ATAS */
+
+'<path d="M43 73 Q42 35 80 30 Q119 35 117 73 Q105 58 94 61 Q80 42 65 61 Q53 58 43 73Z" fill="'+hair+'"/>'+
+
+/* MATA */
+
+eyes+
+
+/* HIDUNG */
+
+'<path d="M80 88 L75 100 L84 100" fill="none" stroke="#9d6243" stroke-width="3"/>'+
+
+/* MULUT */
+
+mouth+
+
+/* NAMA */
+
+'<text x="80" y="18" text-anchor="middle" font-size="9" fill="white" font-weight="bold">'+name+'</text>'+
+
+'</svg>';
+
+}
+
+
+/* ==================================================
+ISI KARAKTER
+================================================== */
+
+document.getElementById("a1").innerHTML=character("Jembo");
+document.getElementById("a2").innerHTML=character("Lia");
+document.getElementById("a3").innerHTML=character("Fantry");
+document.getElementById("a4").innerHTML=character("Irene");
+document.getElementById("a5").innerHTML=character("Andro");
+document.getElementById("a6").innerHTML=character("Sany");
+document.getElementById("a7").innerHTML=character("Dimas");
+document.getElementById("a8").innerHTML=character("Aldy");
+
+
+/* ==================================================
+PINDAH HALAMAN
+================================================== */
+
+function page(id){
+
+document.getElementById("home").classList.remove("active");
+document.getElementById("select").classList.remove("active");
+document.getElementById("battle").classList.remove("active");
+document.getElementById("result").classList.remove("active");
+
+document.getElementById(id).classList.add("active");
+
+}
+
+
+/* ==================================================
+BUKA PILIHAN
+================================================== */
+
+function openSelect(){
+
+page("select");
+
+}
+
+
+/* ==================================================
+MULAI BATTLE
+================================================== */
+
+function start(name){
+
+playerName=name;
+
+var list=[
+"Jembo",
+"Lia",
+"Fantry",
+"Irene",
+"Andro",
+"Sany",
+"Dimas",
+"Aldy"
+];
+
+var r=Math.floor(Math.random()*list.length);
+
+enemyName=list[r];
+
+if(enemyName==playerName){
+
+enemyName="Dimas";
+
+}
+
+hpPlayer=100;
+hpEnemy=100;
+
+defending=false;
+busy=false;
+
+document.getElementById("playerName").innerHTML=playerName;
+document.getElementById("enemyName").innerHTML=enemyName;
+
+document.getElementById("p1").innerHTML=character(playerName);
+document.getElementById("p2").innerHTML=character(enemyName);
+
+document.getElementById("p1").className="fighter";
+document.getElementById("p2").className="fighter";
+
+updateHP();
+
+page("battle");
+
+}
+
+
+/* ==================================================
+UPDATE HP
+================================================== */
+
+function updateHP(){
+
+document.getElementById("hp1").style.width=hpPlayer+"%";
+document.getElementById("hp2").style.width=hpEnemy+"%";
+
+}
+
+
+/* ==================================================
+EFEK DAMAGE
+================================================== */
+
+function effect(text,left,top){
+
+var e=document.createElement("div");
+
+e.className="impact";
+e.innerHTML=text;
+
+e.style.left=left+"px";
+e.style.top=top+"px";
+
+document.getElementById("arena").appendChild(e);
+
+setTimeout(function(){
+
+e.remove();
+
+},550);
+
+}
+
+
+/* ==================================================
+PLAYER MENYERANG
+================================================== */
+
+function playerAttack(){
+
+if(busy)return;
+
+if(hpPlayer<=0 || hpEnemy<=0)return;
+
+busy=true;
+
+var p=document.getElementById("p1");
+var e=document.getElementById("p2");
+
+p.className="fighter attackP";
+
+setTimeout(function(){
+
+var damage=Math.floor(Math.random()*16)+12;
+
+hpEnemy-=damage;
+
+if(hpEnemy<0){
+hpEnemy=0;
+}
+
+e.className="fighter hit";
+
+effect(
+"-"+damage,
+window.innerWidth*.66,
+window.innerHeight*.35
+);
+
+updateHP();
+
+if(hpEnemy<=0){
+
+setTimeout(win,600);
+
+return;
+
+}
+
+setTimeout(function(){
+
+p.className="fighter";
+e.className="fighter";
+
+enemyAttack();
+
+},450);
+
+},230);
+
+}
+
+
+/* ==================================================
+BERTAHAN
+================================================== */
+
+function playerDefend(){
+
+if(busy)return;
+
+if(hpPlayer<=0)return;
+
+busy=true;
+
+defending=true;
+
+var p=document.getElementById("p1");
+
+p.className="fighter guard";
+
+setTimeout(function(){
+
+enemyAttack();
+
+},400);
+
+}
+
+
+/* ==================================================
+MUSUH MENYERANG
+================================================== */
+
+function enemyAttack(){
+
+var e=document.getElementById("p2");
+var p=document.getElementById("p1");
+
+e.className="fighter attackE";
+
+setTimeout(function(){
+
+var damage=Math.floor(Math.random()*15)+9;
+
+if(defending){
+
+damage=Math.floor(damage/2);
+
+effect(
+"BLOCK!",
+window.innerWidth*.23,
+window.innerHeight*.35
+);
+
+defending=false;
+
+}else{
+
+effect(
+"-"+damage,
+window.innerWidth*.23,
+window.innerHeight*.35
+);
+
+}
+
+hpPlayer-=damage;
+
+if(hpPlayer<0){
+hpPlayer=0;
+}
+
+p.className="fighter hit";
+
+updateHP();
+
+setTimeout(function(){
+
+e.className="fighter";
+p.className="fighter";
+
+busy=false;
+
+if(hpPlayer<=0){
+
+lose();
+
+}
+
+},450);
+
+},230);
+
+}
+
+
+/* ==================================================
+MENANG
+================================================== */
+
+function win(){
+
+document.getElementById("resultTitle").innerHTML=
+"🏆 KAMU MENANG!";
+
+page("result");
+
+}
+
+
+/* ==================================================
+KALAH
+================================================== */
+
+function lose(){
+
+document.getElementById("resultTitle").innerHTML=
+"💀 KAMU KALAH!";
+
+page("result");
+
+}
+
+</script>
+
+</body>
+</html>
